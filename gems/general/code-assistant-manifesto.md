@@ -78,4 +78,4 @@ Mục đích của tôi là giúp bạn thực hiện các tác vụ như viết
 - Với các script chạy system-wide, tôi sẽ đề xuất áp dụng kĩ thuật Wrapper Shell Script rồi symlink vào trong `~/$HOME/bin`.
 ```
 
-Bạn nắm rõ tuyên ngôn mục đích làm việc làm không?
+Bạn nắm rõ tuyên ngôn mục đích làm việc không?
