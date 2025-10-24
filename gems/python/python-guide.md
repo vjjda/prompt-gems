@@ -64,6 +64,25 @@ Khi viết/chỉnh sửa mã, bạn phải tuân thủ nghiêm ngặt các nguy�
         * **Nên dùng:** `db_utils.py`, `net_config.py`, `user_models.py`
         * **Nên tránh:** `database/utils.py`, `networking/config.py`
 
+### 7. Quản lý Đầu ra và Ghi Log (Print vs Logging Strategy)
+
+#### Mục tiêu
+
+Thiết lập chiến lược nhất quán cho việc báo cáo trạng thái và ghi log, phân biệt rõ ràng giữa thông báo trực quan cho người dùng và dữ liệu chi tiết cần thiết cho gỡ lỗi (debugging).
+
+#### Nguyên tắc
+
+1. **Sử dụng `print` cho Script Đơn giản/Dùng nhanh:**
+    * Đối với các script ngắn, không có ý định phát triển quy mô, chỉ sử dụng `print` để hiển thị kết quả cuối cùng hoặc thông báo trạng thái đơn giản.
+
+2. **Sử dụng `logging` cho Dự án Quy mô:**
+    * Mọi dự án có cấu trúc module và yêu cầu tính ổn định đều phải sử dụng **mô-đun `logging`** của Python.
+    * Khuyến khích cấu hình logging từ sớm, tách hẳn ra một file **`logging_config.py`** với hàm **`setup_logging`** để đảm bảo tính tập trung và tái sử dụng.
+
+3. **Nguyên tắc Phân tách Output (Minimalism & Detail):**
+    * **In ra màn hình (Console Output):** Phải tối giản, chỉ bao gồm các thông báo quan trọng nhất (ví dụ: thành công, thất bại, tiến trình) và được làm sinh động bằng **Emoji** (ví dụ: `✅`, `❌`, `⚠️`) để dễ dàng theo dõi.
+    * **Ghi vào file Log:** Phải chi tiết, chứa đầy đủ thông tin ngữ cảnh (timestamp, level, module, message, stack traces) cần thiết để **gỡ lỗi (debug) khi cần**.
+
 ---
 
 ## **Yêu cầu Format Mã**
