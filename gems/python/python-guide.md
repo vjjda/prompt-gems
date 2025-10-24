@@ -44,44 +44,18 @@ Khi viết/chỉnh sửa mã, bạn phải tuân thủ nghiêm ngặt các nguy�
 
 ### 6. Đặt tên File để Tránh Xung đột Ngữ cảnh (Context Collision Naming)
 
-*(Nguyên tắc quy ước để tối ưu hóa tương tác với AI)*
-
-#### Mục tiêu
-
-Đảm bảo mỗi file script có một tên gọi duy nhất và có tính mô tả cao trong phạm vi dự án, giúp **tránh trùng lặp tên file (ví dụ: `main.py`, `utils.py`)** giữa các module/thư mục và tối ưu hóa việc tham chiếu code khi tương tác với AI.
-
-#### Nguyên tắc
-
-1. **File Entry Point (`main.py` / `cli.py`):**
-    * Chỉ sử dụng tên `main.py` hoặc `cli.py` ở **thư mục gốc (root)** của toàn bộ dự án.
-    * Đối với các module/sub-project có file entry point riêng, hãy **thêm tiền tố là tên module** để làm rõ ngữ cảnh.
-        * **Nên dùng:** `auth_cli.py`, `reports_main.py`
-        * **Nên tránh:** `auth/main.py`, `reports/main.py`
-
-2. **File Thư viện Hỗ trợ (`utils.py` / `models.py`):**
-    * Tránh sử dụng tên chung chung như `utils.py`, `config.py` ở các cấp thư mục khác nhau.
-    * **Gắn ngữ cảnh của module vào tên file** để tạo sự phân biệt rõ ràng.
-        * **Nên dùng:** `db_utils.py`, `net_config.py`, `user_models.py`
-        * **Nên tránh:** `database/utils.py`, `networking/config.py`
+* **Mục tiêu:** Đảm bảo tên file là **duy nhất và mang tính mô tả** trong toàn dự án, tối ưu hóa việc tham chiếu code khi tương tác với AI.
+* **Quy tắc:**
+    1. **File Entry Point:** Chỉ dùng `main.py`/`cli.py` ở thư mục gốc. Đối với module con, **phải thêm tiền tố là tên module** (ví dụ: `auth_cli.py`) để tránh trùng lặp.
+    2. **File Hỗ trợ:** **Gắn ngữ cảnh của module vào tên file** (ví dụ: `db_utils.py`, `net_config.py`) thay vì dùng tên chung chung (`utils.py`).
 
 ### 7. Quản lý Đầu ra và Ghi Log (Print vs Logging Strategy)
 
-#### Mục tiêu
-
-Thiết lập chiến lược nhất quán cho việc báo cáo trạng thái và ghi log, phân biệt rõ ràng giữa thông báo trực quan cho người dùng và dữ liệu chi tiết cần thiết cho gỡ lỗi (debugging).
-
-#### Nguyên tắc
-
-1. **Sử dụng `print` cho Script Đơn giản/Dùng nhanh:**
-    * Đối với các script ngắn, không có ý định phát triển quy mô, chỉ sử dụng `print` để hiển thị kết quả cuối cùng hoặc thông báo trạng thái đơn giản.
-
-2. **Sử dụng `logging` cho Dự án Quy mô:**
-    * Mọi dự án có cấu trúc module và yêu cầu tính ổn định đều phải sử dụng **mô-đun `logging`** của Python.
-    * Khuyến khích cấu hình logging từ sớm, tách hẳn ra một file **`logging_config.py`** với hàm **`setup_logging`** để đảm bảo tính tập trung và tái sử dụng.
-
-3. **Nguyên tắc Phân tách Output (Minimalism & Detail):**
-    * **In ra màn hình (Console Output):** Phải tối giản, chỉ bao gồm các thông báo quan trọng nhất (ví dụ: thành công, thất bại, tiến trình) và được làm sinh động bằng **Emoji** (ví dụ: `✅`, `❌`, `⚠️`) để dễ dàng theo dõi.
-    * **Ghi vào file Log:** Phải chi tiết, chứa đầy đủ thông tin ngữ cảnh (timestamp, level, module, message, stack traces) cần thiết để **gỡ lỗi (debug) khi cần**.
+* **Mục tiêu:** Phân tách rõ ràng giữa **thông báo người dùng** và **chi tiết gỡ lỗi (debug)**.
+* **Quy tắc:**
+    1. **Script ngắn:** Dùng `print`.
+    2. **Dự án quy mô:** Bắt buộc dùng **`logging`** và tách cấu hình ra file `logging_config.py`, với hàm **`setup_logging`** để đảm bảo tính tập trung và tái sử dụng.
+    3. **Phân tách Output:** **Console Output** phải tối giản, dùng **Emoji** (`✅`, `❌`, `⚠️`) để sinh động. **File Log** phải chi tiết để debug.
 
 ---
 
